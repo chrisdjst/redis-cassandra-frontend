@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+    
     <v-app-bar rounded app dark color="#252525">
       <div class="d-flex align-center">
         <v-img alt="Cassis" class="mr-2" contain src="./assets/cassis4-icon.png" transition="scale-transition"
@@ -10,7 +11,7 @@
   
     </v-app-bar>
 
-    <v-main> 
+    <v-main>
     <router-view />
     </v-main>
 
@@ -22,10 +23,26 @@
 export default {
   name: 'App',
 
-  data: () => ({
-    //
-  }),
-};
+    data: () => ({ isMobile: false }),
+
+    beforeDestroy () {
+      if (typeof window === 'undefined') return
+
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    },
+
+    mounted () {
+      this.onResize()
+
+      window.addEventListener('resize', this.onResize, { passive: true })
+    },
+
+    methods: {
+      onResize () {
+        this.isMobile = window.innerWidth < 600
+      },
+    },
+}
 </script>
 
 <style>

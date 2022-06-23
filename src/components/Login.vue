@@ -3,13 +3,14 @@
     <v-content>
       <v-container fluid>
         <v-row>
-          <v-col cols="12" sm="6" md="6">
+          <v-spacer></v-spacer>
+          <v-col cols="12" sm="6" md="4">
 
-            <img src="../assets/cassis4.png" width="600">
+            <img src="../assets/cassis.png" width="365">
 
           </v-col>
-          
-          <v-col cols="12" sm="6" md="4">
+          <v-spacer></v-spacer>
+          <v-col cols="12" sm="6" md="5">
             <v-hover v-slot:default="{ hover }">
               <v-card color="#252525" :elevation="hover ? 16 : 2" class="elevation-20 rounded-xl tamanho-card" dark >
                 <v-list-item three-line>
@@ -46,7 +47,7 @@
               </v-card>
             </v-hover>
           </v-col>
-
+<v-spacer></v-spacer>
         </v-row>
       </v-container>
     </v-content>
