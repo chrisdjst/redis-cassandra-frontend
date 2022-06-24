@@ -12,26 +12,27 @@
           <v-spacer></v-spacer>
           <v-col cols="12" sm="6" md="5">
             <v-hover v-slot:default="{ hover }">
-              <v-card color="#252525" :elevation="hover ? 16 : 2" class="elevation-20 rounded-xl tamanho-card" dark >
+              <v-card color="#252525" :elevation="hover ? 16 : 2" class="elevation-20 rounded-xl tamanho-card" dark>
                 <v-list-item three-line>
                   <v-list-item-content>
                     <div class="login-text">
-                      Login 
+                      Login
                     </div>
                     <div class="risco"> </div> <br>
-                     <br>
+                    <br>
                     Desenvolvimento Software consumindo dados NoSQL
                     <div class="teste">
                       <v-card-text>
-                        <v-form ref="form">
-                          <v-text-field label="Usuário" v-model="credentials.username" name="login"
-                            prepend-icon="mdi-account" type="text" :rules="rules.username" required></v-text-field>
+                        <v-form ref="form" @submit="submitForm">
+
+                          <v-text-field label="Email" v-model="credentials.email" name="email"
+                            prepend-icon="mdi-account" type="text" :rules="rules.email" required></v-text-field>
 
                           <v-text-field label="Senha" v-model="credentials.password" id="password" name="password"
                             prepend-icon="mdi-lock" type="password" :rules="rules.password" required></v-text-field>
                           <v-card-actions>
                             <br><br><br>
-                            <v-btn outlined rounded block class="fonte">
+                            <v-btn outlined rounded block class="fonte" type="submit">
                               Acessar
                             </v-btn>
                           </v-card-actions>
@@ -47,7 +48,7 @@
               </v-card>
             </v-hover>
           </v-col>
-<v-spacer></v-spacer>
+          <v-spacer></v-spacer>
         </v-row>
       </v-container>
     </v-content>
@@ -55,34 +56,56 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Login',
-  props: {
-    msg: String
-  },
   data() {
     return {
       credentials: {},
       rules: {
-        username: [v => !!v || "Usuário é obrigatório."],
+        email: [v => !!v || "Email é obrigatório."],
         password: [
           v => !!v || "Senha é obrigatória.",
           v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."
-        ]
+        ],
+        form: {
+          // name: '',
+          email: '',
+          // cpf: '',
+          password: ''
+          // login: ''
+        }
       }
     }
   },
+  methods: {
+    submitForm() {
+      axios.post('/login', this.form)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((error) => {
+          console.log(error)
+        }).finally(() => {
+          //Perform action in always
+        });
+    }
+  }
 }
+
 
 </script>
 
 
-<style>
 
+
+<style>
 .borda {
   border: 2px solid;
   border-radius: 25px;
 }
+
 .teste {
   color: #ffffff;
   font-size: 40px;
@@ -114,5 +137,4 @@ export default {
   line-height: 40px;
   color: #ffffff;
 }
-
 </style>
