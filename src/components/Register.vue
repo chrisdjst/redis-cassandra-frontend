@@ -99,9 +99,4 @@ export default {
 </script>
 
 <style>
-
-
-.fonte {
-    font-weight: bold;
-}
 </style>

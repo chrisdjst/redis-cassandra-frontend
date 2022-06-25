@@ -27,7 +27,7 @@ const routes = [
     path: '/style',
     name: 'Style',
     component: Style
-}
+  }
 ]
 
 const router = new VueRouter({
