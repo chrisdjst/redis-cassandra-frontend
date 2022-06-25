@@ -23,7 +23,7 @@
                     Desenvolvimento Software consumindo dados NoSQL
                     <div class="teste">
                       <v-card-text>
-                        <v-form ref="form" @submit="submitForm">
+                        <v-form ref="form" > 
 
                           <v-text-field label="Email" v-model="credentials.email" name="email"
                             prepend-icon="mdi-account" type="text" :rules="rules.email" required></v-text-field>
@@ -32,7 +32,7 @@
                             prepend-icon="mdi-lock" type="password" :rules="rules.password" required></v-text-field>
                           <v-card-actions>
                             <br><br><br>
-                            <v-btn outlined rounded block class="fonte" type="submit">
+                            <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
                               Acessar
                             </v-btn>
                           </v-card-actions>
@@ -62,26 +62,26 @@ export default {
   name: 'Login',
   data() {
     return {
-      credentials: {},
+      credentials: {
+         email: '',
+         password: ''
+      },
       rules: {
         email: [v => !!v || "Email é obrigatório."],
         password: [
           v => !!v || "Senha é obrigatória.",
           v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."
-        ],
-        form: {
-          // name: '',
-          email: '',
-          // cpf: '',
-          password: ''
-          // login: ''
-        }
-      }
+        ]
+      },
+      
     }
   },
+  
   methods: {
-    submitForm() {
-      axios.post('/login', this.form)
+    submitForm() 
+    {
+      axios.post('http://localhost:3000/login', this.credentials, 
+        {'Content-Type': 'application/json;charset=UTF-8', "Access-Control-Allow-Origin": "*"})
         .then((res) => {
           console.log(res)
         })

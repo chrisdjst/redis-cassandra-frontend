@@ -12,32 +12,27 @@
                                             Registrar
                                         </div>
                                         <v-card-text>
-                                            <v-form ref="form" @submit="submitForm">
-                                                <v-text-field label="E-mail" v-model="credentials.email" name="email"
+                                            <v-form ref="form">
+                                                <v-text-field label="E-mail" v-model="form.email" name="email"
                                                     prepend-icon="mdi-mail" type="text" :rules="rules.email" required>
                                                 </v-text-field>
 
-                                                <v-text-field label="Nome Completo" v-model="credentials.name"
+                                                <v-text-field label="Nome Completo" v-model="form.nome"
                                                     name="Nome" prepend-icon="mdi-account" type="text"
                                                     :rules="rules.name" required>
                                                 </v-text-field>
 
-                                                <v-text-field label="Usuário" v-model="credentials.username"
-                                                    name="login" prepend-icon="mdi-account" type="text"
-                                                    :rules="rules.username" required>
+                                                <v-text-field label="Senha" v-model="form.senha" id="password"
+                                                    name="senha" prepend-icon="mdi-lock" type="password"
+                                                    :rules="rules.senha" required>
                                                 </v-text-field>
 
-                                                <v-text-field label="Senha" v-model="credentials.password" id="password"
-                                                    name="password" prepend-icon="mdi-lock" type="password"
-                                                    :rules="rules.password" required>
-                                                </v-text-field>
-
-                                                <v-text-field label="Confirmar Senha" v-model="credentials.cpf" id="cpf"
-                                                    name="cpf" prepend-icon="mdi-lock" type="password"
+                                                <v-text-field label="CPF" v-model="credentials.cpf" id="cpf"
+                                                    name="cpf" prepend-icon="mdi-lock" type="cpf"
                                                     :rules="rules.cpf" required>
                                                 </v-text-field>
                                                 <v-card-actions>
-                                                    <v-btn outlined rounded block class="fonte" type="submit">
+                                                    <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
                                                         Registrar-se
                                                     </v-btn>
                                                 </v-card-actions>
@@ -59,6 +54,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Login',
     props: {
@@ -71,24 +67,24 @@ export default {
                 email: [v => !!v || "E-mail é obrigatório."],
                 name: [v => !!v || "Nome é obrigatório."],
                 username: [v => !!v || "Usuário é obrigatório."],
-                password: [
+                senha: [
                     v => !!v || "Senha é obrigatória.",
                     v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."],
                 cpf: [v => !!v || "CPF é obrigatório."]
                 // Confirmar passowrd     passwordConfirmationRule() {return () => (this.password === this.confirmPassword) || 'Password must match'},
             },
             form: {
-                name: '',
+                nome: '',
                 email: '',
                 cpf: '',
-                password: '',
-                login: ''
+                senha: '',
+                tipo_usuario: 'teste'
             }
         }
     },
     methods: {
         submitForm() {
-            axios.post('/register', this.form)
+            axios.post('http://localhost:3000/usuarios', this.form)
                 .then((res) => {
                     console.log(res)
                 })
@@ -103,21 +99,9 @@ export default {
 </script>
 
 <style>
-.letras {
-    left: 10%;
-    top: 15%;
-    bottom: 10%;
-    text-align: center;
-    font-family: 'Iceland';
-    font-style: normal;
-    font-weight: 200;
-    font-size: 40px;
-    line-height: 40px;
-    color: #ffffff;
-}
+
 
 .fonte {
     font-weight: bold;
 }
 </style>
-

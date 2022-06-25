@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import Inicial from '../components/Inicial.vue'
+import Style from '../components/Style.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,12 @@ const routes = [
     path: '/inicial',
     name: 'inicial',
     component: Inicial
-  }
+  },
+  {
+    path: '/style',
+    name: 'Style',
+    component: Style
+}
 ]
 
 const router = new VueRouter({
