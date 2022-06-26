@@ -23,16 +23,16 @@
                     Desenvolvimento Software consumindo dados NoSQL
                     <div class="teste">
                       <v-card-text>
-                        <v-form ref="form" > 
+                        <v-form @submit="login">
 
-                          <v-text-field label="Email" v-model="credentials.email" name="email"
+                          <v-text-field label="Email" v-model="form.email" name="email"
                             prepend-icon="mdi-account" type="text" :rules="rules.email" required></v-text-field>
 
-                          <v-text-field label="Senha" v-model="credentials.password" id="password" name="password"
+                          <v-text-field label="Senha" v-model="form.password" id="password" name="password"
                             prepend-icon="mdi-lock" type="password" :rules="rules.password" required></v-text-field>
                           <v-card-actions>
                             <br><br><br>
-                            <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
+                            <v-btn outlined rounded block class="fonte" type="submit">
                               Acessar
                             </v-btn>
                           </v-card-actions>
@@ -57,14 +57,15 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from "vuex";
 
 export default {
   name: 'Login',
   data() {
     return {
-      credentials: {
-         email: '',
-         password: ''
+      form: {
+        email: '',
+        password: ''
       },
       rules: {
         email: [v => !!v || "Email é obrigatório."],
@@ -73,24 +74,35 @@ export default {
           v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."
         ]
       },
-      
+
     }
   },
-  
+
   methods: {
-    submitForm() 
-    {
-      axios.post('http://localhost:3000/login', this.credentials, 
-        {'Content-Type': 'application/json;charset=UTF-8', "Access-Control-Allow-Origin": "*"})
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((error) => {
-          console.log(error)
-        }).finally(() => {
-          //Perform action in always
-        });
-    }
+    ...mapMutations(["setEmail", "setToken"]),
+    async login(e) {
+      e.preventDefault();
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.form.email,
+          password: this.form.password,
+        }),
+      });
+      if (response.status !== 200) {
+        console.log("Error: " + response.status + " - " + response.statusText);
+        alert("Email ou senha incorretos!");
+        this.form.password = ''
+      } else {
+        const { access_token } = await response.json();
+        this.setToken(access_token);
+        this.setEmail(this.form.email);
+        this.$router.push('/inicial')
+      }
+    },
   }
 }
 

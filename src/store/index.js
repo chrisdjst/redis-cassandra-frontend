@@ -1,17 +1,25 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
+import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
-  },
-  getters: {
+    email: null,
+    token: null,
   },
   mutations: {
+    setEmail(state, email) {
+      state.email = email;
+    },
+    setToken(state, token) {
+      state.token = token;
+    },
   },
-  actions: {
-  },
-  modules: {
+  actions: {},
+  getters: {
+    isLoggedIn(state) {
+      return !!state.token;
+    },
+    getToken(state) {
+      return state.token;
   }
-})
+}});
