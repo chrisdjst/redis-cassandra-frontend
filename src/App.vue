@@ -15,9 +15,9 @@
       <v-spacer></v-spacer>
       
       <!-- Inicio do Perfil -->
-      <v-dialog v-model="dialog" width="350">
+      <v-dialog v-model="dialog" width="350" v-if="isLoggedIn">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon dark v-on="on" v-if="!isLoggedIn">
+          <v-btn icon dark v-on="on" >
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
