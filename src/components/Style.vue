@@ -52,4 +52,31 @@
   line-height: 40px;
   color: #ffffff;
 }
+.perfil-bold {
+  
+  color: #000000;
+  font-size: 18px;
+}
+.perfil {
+  font-weight: bold;
+  font-size: 20px;
+}
+.perfil-titulo {
+  font-weight: bold;
+  color: #000000;
+  font-size: 32px;
+  font-family: 'Iceland';
+}
+.perfil2 {
+  font-weight: bold;
+  color: #000000;
+  font-family: 'Iceland';
+
+}
+
+.empurra {
+  font-family: 'Iceland';
+  font-style: normal;
+  right: 30%;
+}
 </style>

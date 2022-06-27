@@ -26,10 +26,10 @@
                         <v-form @submit="login">
 
                           <v-text-field label="Email" v-model="form.email" name="email"
-                            prepend-icon="mdi-account" type="text" :rules="rules.email" required></v-text-field>
+                            prepend-icon="mdi-account" type="text" :rules="rules.email" required outlined></v-text-field>
 
                           <v-text-field label="Senha" v-model="form.password" id="password" name="password"
-                            prepend-icon="mdi-lock" type="password" :rules="rules.password" required></v-text-field>
+                            prepend-icon="mdi-lock" type="password" :rules="rules.password" required outlined></v-text-field>
                           <v-card-actions>
                             <br><br><br>
                             <v-btn outlined rounded block class="fonte" type="submit">

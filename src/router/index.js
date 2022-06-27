@@ -5,6 +5,8 @@ import RegisterView from '../views/RegisterView.vue'
 import Inicial from '../components/Inicial.vue'
 import Style from '../components/Style.vue'
 import Teste from '../components/ExPuxarInfo.vue'
+import Perfil from '../components/Perfil.vue'
+import EditarRegistro from '../components/EditarRegistro.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,16 @@ const routes = [
     path: '/inicial',
     name: 'inicial',
     component: Inicial
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil
+  },
+  {
+    path: '/editarregistro',
+    name: 'EditarRegistro',
+    component: EditarRegistro
   },
   {
     path: '/style',
