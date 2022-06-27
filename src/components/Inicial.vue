@@ -4,24 +4,19 @@
             <v-card width="1000">
                 <v-list-item three-line>
                     <v-list-item-content>
-                        <div class="text-h4 mb-4">
+                        <v-list-item-title class="registro-aula mb-4">
                             Curso
-                        </div>
-                        <v-list-item-title class="text-h5 mb-16">
-                            Materia
                         </v-list-item-title>
-                        <v-list-item-title class="text-h5 mb-1">
+                        <v-list-item-title class="registro-aula mb-1">
                             Turma
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-data-table :headers="headers" :items="desserts" class="elevation-1" hide-default-footer>
+                <div class="empurra">
+                <v-data-table :headers="headers" :items="desserts" class="elevation-1 tabela" hide-default-footer>
                 </v-data-table>
-                <v-card-actions>
-                    <router-link to="/">
-                        <v-btn elevation="12" dark x-large>Voltar para Login</v-btn>
-                    </router-link>
-                </v-card-actions>
+                </div>
+                <br><br>
             </v-card>
 
         </v-row>

@@ -31,13 +31,15 @@
                                                     name="cpf" prepend-icon="mdi-lock" type="cpf"
                                                     :rules="rules.cpf" required outlined>
                                                 </v-text-field>
+                                                
                                                 <v-card-actions>
                                                     <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
                                                         Registrar-se
                                                     </v-btn>
                                                 </v-card-actions>
+                                                <br>
                                                 <div align="center" block>
-                                                    Já passoi uma conta? <router-link to="/">Logar-se aqui!
+                                                    Já possui uma conta? <router-link to="/">Logar-se aqui!
                                                     </router-link>
                                                 </div>
                                             </v-form>
@@ -97,6 +99,3 @@ export default {
     }
 }
 </script>
-
-<style>
-</style>

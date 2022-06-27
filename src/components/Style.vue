@@ -41,16 +41,18 @@
 }
 
 .login-text {
-  left: 10%;
-  top: 10%;
-  bottom: 10%;
-
+  margin-left: 20px;
   font-family: 'Iceland';
   font-style: normal;
   font-weight: 200;
   font-size: 50px;
   line-height: 40px;
   color: #ffffff;
+}
+.login-text2 {
+  margin-left: 20px;
+  font-family: 'Iceland';
+  font-size: 22px;
 }
 .perfil-bold {
   
@@ -67,16 +69,41 @@
   font-size: 32px;
   font-family: 'Iceland';
 }
+.perfil-titulo2 {
+  font-weight: bold;
+  color: #000000;
+  font-size: 32px;
+  font-family: 'Iceland';
+  margin-left: 65px;
+}
+.registro-aula {
+  font-weight: bold;
+  color: #000000;
+  font-size: 40px;
+  font-family: 'Iceland';
+  margin-left: 65px;
+}
 .perfil2 {
   font-weight: bold;
   color: #000000;
   font-family: 'Iceland';
-
 }
 
 .empurra {
   font-family: 'Iceland';
   font-style: normal;
-  right: 30%;
+  margin-left: 80px;
+  margin-top: 70px;
+}
+
+.tabela {
+  margin-right: 80px;
+}
+.conteudo {
+  margin-left: 150px;
+}
+.aula {
+  font-size: 22px;
+  font-weight: bold;
 }
 </style>

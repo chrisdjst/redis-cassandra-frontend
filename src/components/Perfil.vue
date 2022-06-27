@@ -2,22 +2,23 @@
     <v-container fluid>
         <v-row>
             <v-spacer></v-spacer>
-            <div class="empurra">
-                <v-card width="1000">
+            <v-card width="1000">
+                
                     <v-col cols="12" sm="" md="6">
-                        <br>
-                        <v-btn to="/inicial" color="primary">
+                        <div class="empurra">
+                        <v-btn to="/inicial" color="primary" rounded>
                             Voltar
                         </v-btn>
+                        </div>
                     </v-col>
-                    <br><br>
+                    <br>
                     <v-hover v-slot:default="{ hover }">
                         <v-col cols="12" sm="6" md="6">
-                            <v-card-title class="perfil-titulo">
-                                Editar Perfil
+                
+                            <v-card-title class="perfil-titulo2">
+                            Editar Perfil
                             </v-card-title>
-                            <br><br>
-
+                            <div class="empurra">
                             <v-form ref="form" class="perfil2">
                                 <v-text-field v-model="nome" label="Nome" outlined></v-text-field>
                                 <v-text-field v-model="email" label="Email" outlined></v-text-field>
@@ -29,12 +30,15 @@
                             <v-btn color="primary">
                                 Alterar Perfil
                             </v-btn>
-<br><br>
+                            </div>
+                            <br><br>
+                            
                         </v-col>
+                        
                     </v-hover>
+                
+            </v-card>
 
-                </v-card>
-            </div>
             <v-spacer></v-spacer>
 
         </v-row>

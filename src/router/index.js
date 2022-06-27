@@ -7,6 +7,7 @@ import Style from '../components/Style.vue'
 import Teste from '../components/ExPuxarInfo.vue'
 import Perfil from '../components/Perfil.vue'
 import EditarRegistro from '../components/EditarRegistro.vue'
+import RegistroAula from '../components/RegistroAula.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const routes = [
     path: '/perfil',
     name: 'Perfil',
     component: Perfil
+  },
+  {
+    path: '/registroaula',
+    name: 'RegistroAula',
+    component: RegistroAula
   },
   {
     path: '/editarregistro',
