@@ -56,7 +56,7 @@
         </v-card>
       </v-dialog>
       <!-- Final do Perfil -->
-      <v-btn icon v-if="isLoggedIn">
+      <v-btn icon v-if="isLoggedIn" @click="logout" to="/">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
@@ -79,7 +79,11 @@ export default {
 
   data: () => ({
     fab: false,
-    dialog: false
+    dialog: false,
+    logout(e) {
+      e.preventDefault();
+      location.reload();
+    }
   }),
   methods: {
     onScroll(e) {

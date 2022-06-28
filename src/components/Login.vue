@@ -102,7 +102,7 @@ export default {
         const { access_token } = await response.json();
         this.setToken(access_token);
         this.setEmail(this.form.email);
-        this.$router.push('/teste')
+        this.$router.push('/inicial')
       }
     },
   }
