@@ -31,11 +31,11 @@
           
             <br>
             <div class="perfil-bold">
-            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" class="perfil" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" prepend-icon="mdi-mail" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" prepend-icon="mdi-card-account-mail" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" prepend-icon="mdi-lock" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" prepend-icon="mdi-account-box-multiple" class="perfil" outlined :readonly="true"></v-text-field>
             </div>
           <v-divider></v-divider>
 

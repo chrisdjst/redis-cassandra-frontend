@@ -14,12 +14,13 @@
                                         <v-card-text>
                                             <v-form ref="form">
                                                 <v-text-field label="E-mail" v-model="form.email" name="email"
-                                                    prepend-icon="mdi-mail" type="text" :rules="rules.email" required outlined>
+                                                    prepend-icon="mdi-mail" type="text" :rules="rules.email" required
+                                                    outlined>
                                                 </v-text-field>
 
-                                                <v-text-field label="Nome Completo" v-model="form.nome"
-                                                    name="Nome" prepend-icon="mdi-account" type="text"
-                                                    :rules="rules.name" required outlined>
+                                                <v-text-field label="Nome Completo" v-model="form.nome" name="Nome"
+                                                    prepend-icon="mdi-account" type="text" :rules="rules.name" required
+                                                    outlined>
                                                 </v-text-field>
 
                                                 <v-text-field label="Senha" v-model="form.senha" id="password"
@@ -27,11 +28,11 @@
                                                     :rules="rules.senha" required outlined>
                                                 </v-text-field>
 
-                                                <v-text-field label="CPF" v-model="credentials.cpf" id="cpf"
-                                                    name="cpf" prepend-icon="mdi-lock" type="cpf"
-                                                    :rules="rules.cpf" required outlined>
+                                                <v-text-field label="CPF" v-model="credentials.cpf" id="cpf" name="cpf"
+                                                    prepend-icon="mdi-card-account-mail" type="cpf" :rules="rules.cpf"
+                                                    required outlined>
                                                 </v-text-field>
-                                                
+
                                                 <v-card-actions>
                                                     <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
                                                         Registrar-se
