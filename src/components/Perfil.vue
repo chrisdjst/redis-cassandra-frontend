@@ -1,4 +1,4 @@
-<template>
+<template onload="editarPerfil">
     <v-container fluid>
         <v-row>
             <v-spacer></v-spacer>
@@ -21,13 +21,13 @@
                             <div class="empurra">
                             <v-form ref="form" class="perfil2">
                                 <v-text-field v-model="nome" label="Nome" outlined></v-text-field>
-                                <v-text-field v-model="email" label="Email" outlined></v-text-field>
-                                <v-text-field v-model="cpf" label="CPF" outlined></v-text-field>
-                                <v-text-field v-model="tipo" label="Tipo de usuario" outlined></v-text-field>
                                 <v-text-field v-model="senha" label="Senha" outlined></v-text-field>
+                                <v-text-field v-model="email" :readonly="true" label="Email" outlined></v-text-field>
+                                <v-text-field v-model="cpf" label="CPF" :readonly="true" outlined></v-text-field>
+                                <v-text-field v-model="tipo_usuario" :readonly="true" label="Tipo de usuario" outlined></v-text-field>
                             </v-form>
                             <br>
-                            <v-btn color="primary">
+                            <v-btn color="primary" @click="editarPerfil">
                                 Alterar Perfil
                             </v-btn>
                             </div>
@@ -47,13 +47,59 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
+    name: 'Perfil',
+    computed: {
+        ...mapGetters(["isLoggedIn", "getToken", "getEmail"])
+    },
     data: () => ({
-        nome: '{{ getEmail }}',
-        email: '{{ getEmail }}',
-        cpf: '{{ getEmail }}',
-        tipo: '{{ getEmail }}',
-        senha: '{{ getEmail }}'
+        nome: '',
+        email: '',
+        cpf: '',
+        tipo: '',
+        senha: '',
+        tipo_usuario: '',
     }),
+    methods: {
+        async pegarInfoPerfil(e) {
+            const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + this.$store.getters["getToken"]
+            }
+        });
+        const resposta = await response.json();
+        const usuario = resposta[0]
+        this.email = usuario.email;
+        this.cpf = usuario.cpf;
+        this.nome = usuario.nome;
+        this.senha = usuario.senha;
+        this.tipo_usuario = usuario.tipoUsuario;
+        },
+        async editarPerfil(e) {
+            const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                },
+                body: JSON.stringify({
+                    nome: this.nome,
+                    senha: this.senha,
+                }),
+            });
+            if (response.status !== 200) {
+                alert("Error: " + response.status + " - " + response.statusText);
+            } else {
+                alert("Perfil alterado com sucesso!");
+            }
+        }
+    },
+    created() {
+        this.pegarInfoPerfil();
+  }
 }
 </script>
