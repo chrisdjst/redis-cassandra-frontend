@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row>
           <v-spacer></v-spacer>
@@ -53,7 +53,7 @@
           <v-spacer></v-spacer>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -73,7 +73,6 @@ export default {
         email: [v => !!v || "Email é obrigatório."],
         password: [
           v => !!v || "Senha é obrigatória.",
-          v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."
         ]
       },
 

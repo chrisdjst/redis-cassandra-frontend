@@ -1,6 +1,6 @@
 <template>
     <v-app id="app">
-        <v-content>
+        <v-main>
             <v-container fluid>
                 <v-row align="center" justify="center">
                     <v-col cols="12" sm="8" md="3">
@@ -32,6 +32,10 @@
                                                     prepend-icon="mdi-card-account-mail" type="cpf" :rules="rules.cpf"
                                                     required outlined>
                                                 </v-text-field>
+                                                <!-- <v-combobox label="Tipo do Usuario" v-model="form.tipo_usuario"
+                                                    prepend-icon="mdi-account-box-multiple" :items="items"
+                                                    :rules="rules.tipo" outlined placeholder>
+                                                </v-combobox> -->
 
                                                 <v-card-actions>
                                                     <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
@@ -52,7 +56,7 @@
                     </v-col>
                 </v-row>
             </v-container>
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 
@@ -73,8 +77,9 @@ export default {
                 senha: [
                     v => !!v || "Senha é obrigatória.",
                     v => (v && v.length > 4) || "A senha deve ser maior que 4 caracteres."],
-                cpf: [v => !!v || "CPF é obrigatório."]
+                cpf: [v => !!v || "CPF é obrigatório."],
                 // Confirmar passowrd     passwordConfirmationRule() {return () => (this.password === this.confirmPassword) || 'Password must match'},
+                tipo: [v => !!v || "Tipo do usuario é obrigatório."]
             },
             form: {
                 nome: '',
@@ -82,7 +87,11 @@ export default {
                 cpf: '',
                 senha: '',
                 tipo_usuario: 'teste'
-            }
+            },
+            items: [
+                'Aluno',
+                'Professor'
+            ]
         }
     },
     methods: {
