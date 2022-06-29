@@ -55,9 +55,10 @@
   font-size: 22px;
 }
 .perfil-bold {
-  
   color: #000000;
   font-size: 18px;
+  margin-left: 75px;
+  margin-right: 75px;
 }
 .perfil {
   font-weight: bold;

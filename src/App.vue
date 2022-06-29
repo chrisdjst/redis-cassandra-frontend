@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
       
       <!-- Inicio do Perfil -->
-      <v-dialog v-model="dialog" width="350" v-if="isLoggedIn">
+      <v-dialog v-model="dialog" width="500" v-if="isLoggedIn">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark v-on="on" @click="pegaInfoPerfil">
             <v-icon>mdi-account</v-icon>
@@ -23,7 +23,6 @@
         </template>
 
         <v-card>
-          
           <v-card-title class="grey lighten-1" >
             <v-spacer></v-spacer><div class="perfil-titulo">Perfil</div><v-spacer></v-spacer>
           </v-card-title>
@@ -32,14 +31,12 @@
           
             <br>
             <div class="perfil-bold">
-            <v-text-field v-model="usuario.nome" class="perfil" :readonly="true"></v-text-field><br>
-            <v-text-field v-model="usuario.email" class="perfil" :readonly="true"></v-text-field><br>
-            <v-text-field v-model="usuario.cpf" class="perfil" :readonly="true"></v-text-field><br>
-            <v-text-field v-model="usuario.senha" class="perfil" :readonly="true"></v-text-field><br>
-            <v-text-field v-model="usuario.tipo_usuario" class="perfil" :readonly="true"></v-text-field><br>
+            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" outlined :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" class="perfil" outlined :readonly="true"></v-text-field>
             </div>
-          
-
           <v-divider></v-divider>
 
           <v-card-actions>
