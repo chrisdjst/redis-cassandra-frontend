@@ -36,7 +36,7 @@
                                                     prepend-icon="mdi-account-box-multiple" :items="items"
                                                     :rules="rules.tipo" outlined placeholder>
                                                 </v-combobox>
-
+            
                                                 <v-card-actions>
                                                     <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
                                                         Registrar-se
@@ -99,6 +99,7 @@ export default {
             axios.post("https://redis-cassandra-backend.herokuapp.com/registro", this.form)
                 .then((res) => {
                     console.log(res)
+                    this.$router.push('/')
                 })
                 .catch((error) => {
                     console.log(error)
