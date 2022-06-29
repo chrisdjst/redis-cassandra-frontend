@@ -17,7 +17,7 @@
       <!-- Inicio do Perfil -->
       <v-dialog v-model="dialog" width="350" v-if="isLoggedIn">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon dark v-on="on" >
+          <v-btn icon dark v-on="on" @click="pegaInfoPerfil">
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
@@ -29,16 +29,16 @@
           </v-card-title>
 
 
-          <v-card-text>
+          
             <br>
             <div class="perfil-bold">
-            <div class="perfil">Nome</div> getname <br><br>
-            <div class="perfil">Email</div> getname <br><br>
-            <div class="perfil">CPF</div> getname <br><br>
-            <div class="perfil">Tipo de usuario</div> getname <br><br>
-            <div class="perfil">Senha</div> getname <br><br>
+            <v-text-field v-model="usuario.nome" class="perfil" :readonly="true"></v-text-field><br>
+            <v-text-field v-model="usuario.email" class="perfil" :readonly="true"></v-text-field><br>
+            <v-text-field v-model="usuario.cpf" class="perfil" :readonly="true"></v-text-field><br>
+            <v-text-field v-model="usuario.senha" class="perfil" :readonly="true"></v-text-field><br>
+            <v-text-field v-model="usuario.tipo_usuario" class="perfil" :readonly="true"></v-text-field><br>
             </div>
-          </v-card-text>
+          
 
           <v-divider></v-divider>
 
@@ -78,6 +78,13 @@ export default {
   },
 
   data: () => ({
+    usuario: {
+      nome: '',
+      cpf: '',
+      senha: '',
+      tipo_usuario: '',
+      email: '',
+    },
     fab: false,
     dialog: false,
     logout(e) {
@@ -93,6 +100,23 @@ export default {
     },
     toTop() {
       this.$vuetify.goTo(0);
+    },
+    async pegaInfoPerfil(e) {
+      // this.$store.getters["getEmail"]
+      const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + this.$store.getters["getToken"]
+        }
+      });
+      const resposta = await response.json();
+      const usuario = resposta[0]
+      this.usuario.email = usuario.email;
+      this.usuario.cpf = usuario.cpf;
+      this.usuario.nome = usuario.nome;
+      this.usuario.senha = usuario.senha;
+      this.usuario.tipo_usuario = usuario.tipoUsuario;
     }
   }
 }
