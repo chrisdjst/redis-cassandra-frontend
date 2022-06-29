@@ -25,7 +25,7 @@
                                 <v-text-field v-model="email" :readonly="true" label="Email" outlined></v-text-field>
                                 <v-text-field v-model="cpf" label="CPF" :readonly="true" outlined></v-text-field>
                                 <v-text-field v-model="tipo_usuario" :readonly="true" label="Tipo de usuario" outlined></v-text-field>
-                                <v-alert type="success" text>
+                                <v-alert type="success">
                                 Perfil alterado com sucesso!
                             </v-alert>
                             </v-form>
@@ -98,6 +98,7 @@ export default {
                 alert("Error: " + response.status + " - " + response.statusText);
             } else {
                 alert("Perfil alterado com sucesso!");
+
             }
         }
     },
