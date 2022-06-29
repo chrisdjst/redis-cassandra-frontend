@@ -32,7 +32,7 @@
 
                           <v-text-field label="Senha" v-model="form.password" id="password" name="password"
                             prepend-icon="mdi-lock" type="password" :rules="rules.password" required outlined></v-text-field>
-                            <v-alert type="error" shaped>
+                            <v-alert type="error" text>
                                 Email ou senha incorretos!
                             </v-alert>
                           <v-card-actions>
