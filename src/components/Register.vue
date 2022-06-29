@@ -32,10 +32,10 @@
                                                     prepend-icon="mdi-card-account-mail" type="cpf" :rules="rules.cpf"
                                                     required outlined>
                                                 </v-text-field>
-                                                <!-- <v-combobox label="Tipo do Usuario" v-model="form.tipo_usuario"
+                                                <v-combobox label="Tipo do Usuario" v-model="form.tipo_usuario"
                                                     prepend-icon="mdi-account-box-multiple" :items="items"
                                                     :rules="rules.tipo" outlined placeholder>
-                                                </v-combobox> -->
+                                                </v-combobox>
 
                                                 <v-card-actions>
                                                     <v-btn outlined rounded block class="fonte" v-on:click="submitForm">
@@ -86,7 +86,7 @@ export default {
                 email: '',
                 cpf: '',
                 senha: '',
-                tipo_usuario: 'teste'
+                tipo_usuario: ''
             },
             items: [
                 'Aluno',
@@ -96,7 +96,7 @@ export default {
     },
     methods: {
         submitForm() {
-            axios.post('http://localhost:3000/usuarios', this.form)
+            axios.post("https://redis-cassandra-backend.herokuapp.com/registro", this.form)
                 .then((res) => {
                     console.log(res)
                 })

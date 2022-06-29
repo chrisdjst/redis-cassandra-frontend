@@ -83,7 +83,7 @@ export default {
     ...mapMutations(["setEmail", "setToken"]),
     async login(e) {
       e.preventDefault();
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

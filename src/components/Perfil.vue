@@ -64,7 +64,7 @@ export default {
     }),
     methods: {
         async pegarInfoPerfil(e) {
-            const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export default {
         this.tipo_usuario = usuario.tipoUsuario;
         },
         async editarPerfil(e) {
-            const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

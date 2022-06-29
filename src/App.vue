@@ -100,7 +100,7 @@ export default {
     },
     async pegaInfoPerfil(e) {
       // this.$store.getters["getEmail"]
-      const response = await fetch("http://localhost:3000/usuarios/" + this.$store.getters["getEmail"], {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
