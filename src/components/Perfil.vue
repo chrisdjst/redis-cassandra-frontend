@@ -63,7 +63,7 @@ export default {
         cpf: '',
         tipo: '',
         senha: '',
-        tipo_usuario: '',
+        tipo_usuario: ''
     }),
     methods: {
         async pegarInfoPerfil(e) {

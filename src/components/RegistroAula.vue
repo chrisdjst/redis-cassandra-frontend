@@ -24,7 +24,7 @@
                 <div class="aula"> 
                 <div class="empurra">
                 Titulo da aula (data da aula)
-                <v-btn icon>
+                <v-btn icon to="/editarregistro">
                     <v-icon>mdi-pencil-outline</v-icon>
                 </v-btn>
                 <v-divider></v-divider>
@@ -33,7 +33,9 @@
                 <div class="conteudo">
                 Conteudo da Aula
                 </div>
-    
+                 <div class="empurra">
+                <v-btn color="primary" rounded to="/adicionarregistro">Adicionar registro de Aula</v-btn>
+                </div>
                 <br><br><br>
             </v-card>
 

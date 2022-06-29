@@ -13,7 +13,7 @@
         <h1>Cassis</h1>
       </div>
       <v-spacer></v-spacer>
-      
+
       <!-- Inicio do Perfil -->
       <v-dialog v-model="dialog" width="500" v-if="isLoggedIn">
         <template v-slot:activator="{ on, attrs }">
@@ -23,20 +23,27 @@
         </template>
 
         <v-card>
-          <v-card-title class="grey lighten-1" >
-            <v-spacer></v-spacer><div class="perfil-titulo">Perfil</div><v-spacer></v-spacer>
+          <v-card-title class="grey lighten-1">
+            <v-spacer></v-spacer>
+            <div class="perfil-titulo">Perfil</div>
+            <v-spacer></v-spacer>
           </v-card-title>
 
 
-          
-            <br>
-            <div class="perfil-bold">
-            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" prepend-icon="mdi-mail" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" prepend-icon="mdi-card-account-mail" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" prepend-icon="mdi-lock" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" prepend-icon="mdi-account-box-multiple" class="perfil" outlined :readonly="true"></v-text-field>
-            </div>
+
+          <br>
+          <div class="perfil-bold">
+            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" prepend-icon="mdi-mail" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" prepend-icon="mdi-card-account-mail" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" prepend-icon="mdi-lock" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" prepend-icon="mdi-account-box-multiple"
+              class="perfil" outlined :readonly="true"></v-text-field>
+          </div>
           <v-divider></v-divider>
 
           <v-card-actions>
@@ -45,9 +52,9 @@
               Fechar
             </v-btn>
             <router-link to="/perfil">
-            <v-btn color="primary" @click="dialog = false">
-              Editar
-            </v-btn>
+              <v-btn color="primary" @click="dialog = false">
+                Editar
+              </v-btn>
             </router-link>
           </v-card-actions>
         </v-card>
@@ -58,10 +65,20 @@
       </v-btn>
     </v-app-bar>
     <!-- Final da ToolBar -->
+
     <v-main>
       <router-view />
     </v-main>
-
+    <!-- Inicio do Footer -->
+    <v-footer dark padless width="100%">
+      <v-card tile width="100%">
+        <br>
+        <v-card-text class="white--text footer">
+          {{ new Date().getFullYear() }} — <strong>CASSIS - BANCOS DE DADOS NOSQL</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
+    <!-- Final do Footer -->
   </v-app>
 </template>
 

@@ -16,26 +16,26 @@
                     <v-hover v-slot:default="{ hover }">
                         <v-col cols="12" sm="6" md="6">
                             <v-card-title class="perfil-titulo2">
-                                Editar Registro da Aula
+                                Criar Registro da Aula
                             </v-card-title>
                             <div class="empurra">
                             <v-form ref="form" class="perfil2">
-                                <v-text-field v-model="curso" label="Curso" outlined :readonly="true"></v-text-field>
-                                <v-text-field v-model="turma" label="Turma" outlined :readonly="true"></v-text-field>
-                                <v-text-field v-model="disciplica" label="Disciplina" outlined :readonly="true"></v-text-field>
+                                <v-text-field v-model="curso" label="Curso" outlined></v-text-field>
+                                <v-text-field v-model="turma" label="Turma" outlined></v-text-field>
+                                <v-text-field v-model="disciplica" label="Disciplina" outlined></v-text-field>
                                 <v-text-field v-model="titulo" label="Titulo da aula" outlined></v-text-field>
                                 <v-text-field v-model="data" label="Data da aula" outlined></v-text-field>
                                 <v-text-field v-model="conteudo" label="Conteúdo da aula" outlined></v-text-field>
                                 <v-textarea outlined name="input-7-4" v-model="conteudo" label="Conteúdo da aula">
                                 </v-textarea>
                                 <v-alert type="success">
-                                Registro da Aula alterado com sucesso!
+                                Registro da Aula criado com sucesso!
                             </v-alert>
                             
                             </v-form>
                             <br>
                             <v-btn color="primary">
-                                Alterar registro da aula
+                                Registrar aula
                             </v-btn>
                             <br><br>
                             </div>

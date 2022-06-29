@@ -3,6 +3,12 @@
   background: url('../assets/Backgroud.jpg');
   background-size: cover;
 }
+.background {
+    background: url('../assets/Backgroud.jpg');
+}
+.footer {
+  text-align: center;
+}
 
 .letras {
     left: 10%;
@@ -30,7 +36,6 @@
 .fonte {
   font-weight: bold;
 }
-
 .risco {
   position: absolute;
   left: 4%;
