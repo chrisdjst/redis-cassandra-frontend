@@ -8,6 +8,7 @@ import Teste from '../components/ExPuxarInfo.vue'
 import Perfil from '../components/Perfil.vue'
 import EditarRegistro from '../components/EditarRegistro.vue'
 import RegistroAula from '../components/RegistroAula.vue'
+import AdicionarRegistro from '../components/AdicionarRegistro.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/registroaula',
     name: 'RegistroAula',
     component: RegistroAula
+  },
+  {
+    path: '/adicionarregistro',
+    name: 'AdicionarRegistro',
+    component: AdicionarRegistro
   },
   {
     path: '/editarregistro',

@@ -13,9 +13,9 @@
         <h1>Cassis</h1>
       </div>
       <v-spacer></v-spacer>
-      
+
       <!-- Inicio do Perfil -->
-      <v-dialog v-model="dialog" width="500" v-if="isLoggedIn">
+      <v-dialog v-model="dialog" width="500" v-if="acesso">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark v-on="on" @click="pegaInfoPerfil">
             <v-icon>mdi-account</v-icon>
@@ -23,20 +23,24 @@
         </template>
 
         <v-card>
-          <v-card-title class="grey lighten-1" >
-            <v-spacer></v-spacer><div class="perfil-titulo">Perfil</div><v-spacer></v-spacer>
+          <v-card-title class="grey lighten-1">
+            <v-spacer></v-spacer>
+            <div class="perfil-titulo">Perfil</div>
+            <v-spacer></v-spacer>
           </v-card-title>
-
-
-          
-            <br>
-            <div class="perfil-bold">
-            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" prepend-icon="mdi-mail" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" prepend-icon="mdi-card-account-mail" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" prepend-icon="mdi-lock" outlined :readonly="true"></v-text-field>
-            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" prepend-icon="mdi-account-box-multiple" class="perfil" outlined :readonly="true"></v-text-field>
-            </div>
+          <br>
+          <div class="perfil-bold">
+            <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.email" label="E-mail" class="perfil" prepend-icon="mdi-mail" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.cpf" label="CPF" class="perfil" prepend-icon="mdi-card-account-mail" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.senha" label="Senha" class="perfil" prepend-icon="mdi-lock" outlined
+              :readonly="true"></v-text-field>
+            <v-text-field v-model="usuario.tipo_usuario" label="Tipo do Usuario" prepend-icon="mdi-account-box-multiple"
+              class="perfil" outlined :readonly="true"></v-text-field>
+          </div>
           <v-divider></v-divider>
 
           <v-card-actions>
@@ -45,23 +49,33 @@
               Fechar
             </v-btn>
             <router-link to="/perfil">
-            <v-btn color="primary" @click="dialog = false">
-              Editar
-            </v-btn>
+              <v-btn color="primary" @click="dialog = false">
+                Editar
+              </v-btn>
             </router-link>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <!-- Final do Perfil -->
-      <v-btn icon v-if="isLoggedIn" @click="logout" to="/">
+      <v-btn icon v-if="acesso" @click="logout" to="/">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
     <!-- Final da ToolBar -->
+
     <v-main>
       <router-view />
     </v-main>
-
+    <!-- Inicio do Footer -->
+    <v-footer dark padless width="100%">
+      <v-card tile width="100%">
+        <br>
+        <v-card-text class="white--text footer">
+          {{ new Date().getFullYear() }} — <strong>CASSIS - BANCOS DE DADOS NOSQL</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
+    <!-- Final do Footer -->
   </v-app>
 </template>
 
@@ -75,6 +89,7 @@ export default {
   },
 
   data: () => ({
+    acesso: false,
     usuario: {
       nome: '',
       cpf: '',
@@ -86,7 +101,9 @@ export default {
     dialog: false,
     logout(e) {
       e.preventDefault();
-      location.reload();
+      this.acesso=false;
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
     }
   }),
   methods: {
@@ -100,11 +117,11 @@ export default {
     },
     async pegaInfoPerfil(e) {
       // this.$store.getters["getEmail"]
-      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.$store.getters["getToken"]
+          "Authorization": "Bearer " + sessionStorage.getItem('token')
         }
       });
       const resposta = await response.json();
@@ -115,6 +132,9 @@ export default {
       this.usuario.senha = usuario.senha;
       this.usuario.tipo_usuario = usuario.tipoUsuario;
     }
-  }
+  },
+  created() {
+    this.acesso=(sessionStorage.getItem('token')?true:false);
+  },
 }
 </script>
