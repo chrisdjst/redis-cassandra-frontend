@@ -12,7 +12,7 @@
                     </div>
                 </v-col>
                 <br>
-                <v-hover v-slot:default="{ hover }">
+                <v-hover>
                     <v-col cols="12" sm="6" md="6">
 
                         <v-card-title class="perfil-titulo2">
