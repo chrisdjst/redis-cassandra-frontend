@@ -108,6 +108,7 @@ export default {
         sessionStorage.setItem('token',access_token);
         sessionStorage.setItem('email',this.form.email);
         this.$router.push('/inicial')
+        location.reload()
       }
     },
   }
