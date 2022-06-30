@@ -3,43 +3,47 @@
         <v-row>
             <v-spacer></v-spacer>
             <v-card width="1000">
-                
-                    <v-col cols="12" sm="" md="6">
-                        <div class="empurra">
+
+                <v-col cols="12" sm="" md="6">
+                    <div class="empurra">
                         <v-btn to="/inicial" color="primary" rounded>
                             Voltar
                         </v-btn>
-                        </div>
-                    </v-col>
-                    <br>
-                    <v-hover v-slot:default="{ hover }">
-                        <v-col cols="12" sm="6" md="6">
-                
-                            <v-card-title class="perfil-titulo2">
+                    </div>
+                </v-col>
+                <br>
+                <v-hover v-slot:default="{ hover }">
+                    <v-col cols="12" sm="6" md="6">
+
+                        <v-card-title class="perfil-titulo2">
                             Editar Perfil
-                            </v-card-title>
-                            <div class="empurra">
+                        </v-card-title>
+                        <div class="empurra">
                             <v-form ref="form" class="perfil2">
                                 <v-text-field v-model="nome" label="Nome" outlined></v-text-field>
                                 <v-text-field v-model="senha" label="Senha" outlined></v-text-field>
                                 <v-text-field v-model="email" :readonly="true" label="Email" outlined></v-text-field>
                                 <v-text-field v-model="cpf" label="CPF" :readonly="true" outlined></v-text-field>
-                                <v-text-field v-model="tipo_usuario" :readonly="true" label="Tipo de usuario" outlined></v-text-field>
-                                <v-alert type="success">
-                                Perfil alterado com sucesso!
-                            </v-alert>
+                                <v-text-field v-model="tipo_usuario" :readonly="true" label="Tipo de usuario" outlined>
+                                </v-text-field>
+                                <v-alert type="success" v-show="alerta">
+                                    Perfil alterado com sucesso!
+                                </v-alert>
+                                <v-alert type="error" v-show="alertaerro">
+                                    Erro ao alterar o perfil!
+                                </v-alert>
                             </v-form>
                             <br>
                             <v-btn color="primary" @click="editarPerfil">
                                 Alterar Perfil
                             </v-btn>
-                            </div>
-                            <br><br>
-                            
-                        </v-col>
-                        
-                    </v-hover>
-                
+                        </div>
+                        <br><br>
+
+                    </v-col>
+
+                </v-hover>
+
             </v-card>
 
             <v-spacer></v-spacer>
@@ -58,6 +62,8 @@ export default {
         ...mapGetters(["isLoggedIn", "getToken", "getEmail"])
     },
     data: () => ({
+        alerta: false,
+        alertaerro: false,
         nome: '',
         email: '',
         cpf: '',
@@ -68,19 +74,19 @@ export default {
     methods: {
         async pegarInfoPerfil(e) {
             const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + this.$store.getters["getToken"]
-            }
-        });
-        const resposta = await response.json();
-        const usuario = resposta[0]
-        this.email = usuario.email;
-        this.cpf = usuario.cpf;
-        this.nome = usuario.nome;
-        this.senha = usuario.senha;
-        this.tipo_usuario = usuario.tipoUsuario;
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                }
+            });
+            const resposta = await response.json();
+            const usuario = resposta[0]
+            this.email = usuario.email;
+            this.cpf = usuario.cpf;
+            this.nome = usuario.nome;
+            this.senha = usuario.senha;
+            this.tipo_usuario = usuario.tipoUsuario;
         },
         async editarPerfil(e) {
             const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
@@ -95,15 +101,17 @@ export default {
                 }),
             });
             if (response.status !== 200) {
-                alert("Error: " + response.status + " - " + response.statusText);
+                this.alertaerro = true;
+                this.alerta = false;
             } else {
-                alert("Perfil alterado com sucesso!");
+                this.alerta = true;
+                this.alertaerro = false;
 
             }
         }
     },
     created() {
         this.pegarInfoPerfil();
-  }
+    }
 }
 </script>

@@ -8,7 +8,6 @@
               Curso
               <v-btn color="primary" rounded>Alterar</v-btn>
             </v-list-item-title>
-
             <v-list-item-title class="registro-aula mb-1">
               Turma
             </v-list-item-title>
@@ -31,15 +30,15 @@
                 </tr>
               </thead>
               <tbody>     
-                <tr v-for="item in desserts" :key="item.name">
+                <tr v-for="item in turmas" :key="item.name">
 
                   <td>
                     <v-btn plain color="#000000" to="/registroaula">
-                      {{ item.name }}
+                      {{ item.materia }} - {{ item.turma }}
                     </v-btn>    
                   </td>
-                  <td>{{ item.local }}</td>
-                  <td>{{ item.data }}</td>
+                  <td>B1</td>
+                  <td>07/03/2022 - 22/07/2022</td>
                   
                 </tr>
                 
@@ -68,19 +67,26 @@ export default {
         { text: 'Local', value: 'local' },
         { text: 'Data', value: 'data' },
       ],
-      desserts: [
-        {
-          name: 'Materia - Turma',
-          local: 'B1',
-          data: '07/03/2022 - 22/07/2022',
-        },
-        {
-          name: 'Materia - Turma',
-          local: 'B1',
-          data: '07/03/2022 - 22/07/2022',
-        },
+      turmas: [
+
       ],
     }
+  },
+  methods: {
+    async ListarTurmas(e) {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + this.$store.getters["getEmail"], {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                }
+            });
+            const resposta = await response.json();
+            this.turmas = resposta;
+        },
+  },
+  created() {
+  this.ListarTurmas();
   },
 }
 </script>

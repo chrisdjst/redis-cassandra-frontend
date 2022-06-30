@@ -33,7 +33,7 @@
 
                           <v-text-field label="Senha" v-model="form.password" id="password" name="password"
                             prepend-icon="mdi-lock" type="password" :rules="rules.password" required outlined></v-text-field>
-                            <v-alert type="error" text>
+                            <v-alert type="error" text v-show="alerta">
                                 Email ou senha incorretos!
                             </v-alert>
                           <v-card-actions>
@@ -70,6 +70,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      alerta: false,
       form: {
         email: '',
         password: ''
@@ -100,7 +101,7 @@ export default {
       });
       if (response.status !== 200) {
         console.log("Error: " + response.status + " - " + response.statusText);
-        alert("Email ou senha incorretos!");
+        this.alerta = true;
         this.form.password = ''
       } else {
         const { access_token } = await response.json();

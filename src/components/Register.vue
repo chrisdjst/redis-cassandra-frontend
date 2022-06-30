@@ -28,7 +28,7 @@
                                                     :rules="rules.senha" required outlined>
                                                 </v-text-field>
 
-                                                <v-text-field label="CPF" v-model="credentials.cpf" id="cpf" name="cpf"
+                                                <v-text-field label="CPF" v-model="form.cpf" id="cpf" name="cpf"
                                                     prepend-icon="mdi-card-account-mail" type="cpf" :rules="rules.cpf"
                                                     required outlined>
                                                 </v-text-field>
