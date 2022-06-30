@@ -13,7 +13,7 @@
                     </div>
                 </v-col>
                 <br>
-                <v-hover v-slot:default="{ hover }">
+                <v-hover>
                     <v-col cols="12" sm="6" md="6">
                         <v-card-title class="perfil-titulo2" >
                             Criar Registro da Aula
@@ -22,16 +22,16 @@
                             <v-form ref="form" class="perfil2">
                                 <v-text-field v-model="curso" label="Curso" outlined :readonly="true"></v-text-field>
                                 <v-text-field v-model="turma" label="Turma" outlined :readonly="true"></v-text-field>
-                                <v-text-field v-model="materia" label="Nateria" outlined :readonly="true"></v-text-field>
+                                <v-text-field v-model="materia" label="Materia" outlined :readonly="true"></v-text-field>
                                 <v-text-field v-model="data" label="Data da aula" outlined></v-text-field>
                                 <v-textarea outlined name="input-7-4" v-model="conteudo" label="Conteúdo da aula">
                                 </v-textarea>
-                                <!-- <v-alert type="success" v-show="alerta">
-                                    Perfil alterado com sucesso!
+                                <v-alert type="success" v-show="alerta">
+                                    Aula registrada com sucesso!
                                 </v-alert>
                                 <v-alert type="error" v-show="alertaerro">
-                                    Erro ao alterar o perfil!
-                                </v-alert> -->
+                                    Erro ao registrar a aula!
+                                </v-alert> 
 
                             </v-form>
                             <br>
@@ -83,9 +83,10 @@ export default {
                     nome: this.nome,
                 }),
             });
-            if (response.status == 200) {
+            if (response.status == 201) {
                 this.alertaerro = false;
                 this.alerta = true;
+                this.descricao_aula = '';
             } else {
                 this.alerta = false;
                 this.alertaerro = true;
