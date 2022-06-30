@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
 
       <!-- Inicio do Perfil -->
-      <v-dialog v-model="dialog" width="500" v-if="isLoggedIn">
+      <v-dialog v-model="dialog" width="500" v-if="acesso">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon dark v-on="on" @click="pegaInfoPerfil">
             <v-icon>mdi-account</v-icon>
@@ -28,9 +28,6 @@
             <div class="perfil-titulo">Perfil</div>
             <v-spacer></v-spacer>
           </v-card-title>
-
-
-
           <br>
           <div class="perfil-bold">
             <v-text-field v-model="usuario.nome" label="Nome" class="perfil" prepend-icon="mdi-account" outlined
@@ -60,7 +57,7 @@
         </v-card>
       </v-dialog>
       <!-- Final do Perfil -->
-      <v-btn icon v-if="isLoggedIn" @click="logout" to="/">
+      <v-btn icon v-if="acesso" @click="logout" to="/">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
@@ -92,6 +89,7 @@ export default {
   },
 
   data: () => ({
+    acesso: false,
     usuario: {
       nome: '',
       cpf: '',
@@ -103,7 +101,9 @@ export default {
     dialog: false,
     logout(e) {
       e.preventDefault();
-      location.reload();
+      this.acesso=false;
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
     }
   }),
   methods: {
@@ -117,11 +117,11 @@ export default {
     },
     async pegaInfoPerfil(e) {
       // this.$store.getters["getEmail"]
-      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.$store.getters["getToken"]
+          "Authorization": "Bearer " + sessionStorage.getItem('token')
         }
       });
       const resposta = await response.json();
@@ -132,6 +132,9 @@ export default {
       this.usuario.senha = usuario.senha;
       this.usuario.tipo_usuario = usuario.tipoUsuario;
     }
-  }
+  },
+  created() {
+    this.acesso=(sessionStorage.getItem('token')?true:false);
+  },
 }
 </script>

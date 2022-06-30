@@ -5,7 +5,7 @@
         <v-list-item three-line>
           <v-list-item-content>
             <v-list-item-title class="registro-aula mb-4">
-              Curso
+              {{ curso }}
               <v-btn color="primary" rounded>Alterar</v-btn>
             </v-list-item-title>
             <v-list-item-title class="registro-aula mb-1">
@@ -30,7 +30,7 @@
                 </tr>
               </thead>
               <tbody>     
-                <tr v-for="item in turmas" :key="item.name">
+                <tr v-for="item in diciplinas" :key="item.name">
 
                   <td>
                     <v-btn plain color="#000000" to="/registroaula">
@@ -58,6 +58,7 @@
 export default {
   data() {
     return {
+      curso: '',
       headers: [
         {
           text: 'Componente curricular',
@@ -67,26 +68,30 @@ export default {
         { text: 'Local', value: 'local' },
         { text: 'Data', value: 'data' },
       ],
-      turmas: [
+      diciplinas: [
 
       ],
     }
   },
   methods: {
-    async ListarTurmas(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + this.$store.getters["getEmail"], {
+    async ListarDiciplinas(e) {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/leciona/" + sessionStorage.getItem('email'), {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                    "Authorization": "Bearer " + sessionStorage.getItem("token")
                 }
             });
             const resposta = await response.json();
-            this.turmas = resposta;
+            this.diciplinas = resposta;
         },
+    async PegarPrimeiroCurso(e) {
+            this.curso = this.diciplinas[0].curso;
+    }
   },
   created() {
-  this.ListarTurmas();
+  this.ListarDiciplinas();
+  this.PegarPrimeiroCurso();
   },
 }
 </script>

@@ -105,8 +105,8 @@ export default {
         this.form.password = ''
       } else {
         const { access_token } = await response.json();
-        this.setToken(access_token);
-        this.setEmail(this.form.email);
+        sessionStorage.setItem('token',access_token);
+        sessionStorage.setItem('email',this.form.email);
         this.$router.push('/inicial')
       }
     },
