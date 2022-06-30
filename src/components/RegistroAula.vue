@@ -21,7 +21,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <div class="aula" v-for="item in turmas">
+                <div class="aula" v-for="item in turmasFiltradas" >
                     <div class="empurra">
                         {{ item.materia }} - {{ item.turma }} - {{ item.dtAula }}
                         <v-btn icon to="/editarregistro">
@@ -65,6 +65,13 @@ export default {
             ],
         }
     },
+    computed: {
+        turmasFiltradas: function () {
+            return this.turmas.filter(function (turma) {
+            return (turma.materia == localStorage.getItem('materia') & turma.turma == localStorage.getItem('turma'));
+            })
+        }
+    },
     methods: {
         async ListarTurmas(e) {
             const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + localStorage.getItem('materia'), {
@@ -77,6 +84,7 @@ export default {
             const resposta = await response.json();
             this.turmas = resposta;
         },
+
     },
     created() {
         this.ListarTurmas();
