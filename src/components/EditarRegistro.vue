@@ -19,14 +19,13 @@
                             Editar Registro da Aula
                         </v-card-title>
                         <div class="empurra">
-                            <v-form ref="form" class="perfil2">
+                            <v-form ref="form" class="perfil2" @submit="CriarRegistro">
                                 <v-text-field v-model="curso" label="Curso" outlined :readonly="true"></v-text-field>
                                 <v-text-field v-model="turma" label="Turma" outlined :readonly="true"></v-text-field>
-                                <v-text-field v-model="disciplica" label="Disciplina" outlined :readonly="true">
+                                <v-text-field v-model="materia" label="Materia" outlined :readonly="true">
                                 </v-text-field>
                                 <v-text-field v-model="titulo" label="Titulo da aula" outlined></v-text-field>
                                 <v-text-field v-model="data" label="Data da aula" outlined></v-text-field>
-                                <v-text-field v-model="conteudo" label="Conteúdo da aula" outlined></v-text-field>
                                 <v-textarea outlined name="input-7-4" v-model="conteudo" label="Conteúdo da aula">
                                 </v-textarea>
                                 <v-alert type="success" v-show="alerta">
@@ -38,7 +37,7 @@
 
                             </v-form>
                             <br>
-                            <v-btn color="primary">
+                            <v-btn color="primary" type="submit">
                                 Alterar registro da aula
                             </v-btn>
                             <br><br>
@@ -57,12 +56,43 @@
 <script>
 export default {
     data: () => ({
-        curso: '{{ getEmail }}',
-        turma: '{{ getEmail }}',
-        disciplica: '{{ getEmail }}',
-        titulo: '{{ getEmail }}',
-        data: '{{ getEmail }}',
-        conteudo: '{{ getEmail }}'
+        curso: '',
+        turma: '',
+        materia: '',
+        titulo: '',
+        data: '',
+        conteudo: ''
     }),
+    methods: {        
+        async CriarRegistro(e) {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + sessionStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    curso: this.curso,
+                    turma: this.turma,
+                    materia: this.materia,
+                    titulo: this.titulo,
+                    data: this.data,
+                    conteudo: this.conteudo,
+                }),
+            });
+            if (response.status !== 200) {
+                this.alertaerro = true;
+                this.alerta = false;
+            } else {
+                this.alerta = true;
+                this.alertaerro = false;
+            }
+        }  
+},
+    created() {
+        this.curso=localStorage.getItem('curso');
+        this.turma=localStorage.getItem('turma');
+        this.materia=localStorage.getItem('materia');
+    }
 }
 </script>

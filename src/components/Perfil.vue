@@ -73,11 +73,11 @@ export default {
     }),
     methods: {
         async pegarInfoPerfil(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                    "Authorization": "Bearer " + sessionStorage.getItem('token')
                 }
             });
             const resposta = await response.json();
@@ -89,11 +89,11 @@ export default {
             this.tipo_usuario = usuario.tipoUsuario;
         },
         async editarPerfil(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + this.$store.getters["getEmail"], {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                    "Authorization": "Bearer " + sessionStorage.getItem('token')
                 },
                 body: JSON.stringify({
                     nome: this.nome,
@@ -106,7 +106,6 @@ export default {
             } else {
                 this.alerta = true;
                 this.alertaerro = false;
-
             }
         }
     },

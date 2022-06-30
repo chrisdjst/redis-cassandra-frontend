@@ -5,11 +5,7 @@
         <v-list-item three-line>
           <v-list-item-content>
             <v-list-item-title class="registro-aula mb-4">
-              {{ curso }}
-              <v-btn color="primary" rounded>Alterar</v-btn>
-            </v-list-item-title>
-            <v-list-item-title class="registro-aula mb-1">
-              Turma
+              {{ perfil.tipoUsuario }} {{ perfil.nome }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -29,21 +25,21 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>     
+              <tbody>
                 <tr v-for="item in diciplinas" :key="item.name">
 
                   <td>
-                    <v-btn plain color="#000000" to="/registroaula">
-                      {{ item.materia }} - {{ item.turma }}
-                    </v-btn>    
+                    <v-btn @click="Gambiarra(item.materia, item.curso, item.turma)" plain color="#000000" >
+                      {{ item.materia }} - {{ item.curso }} {{ item.turma }}
+                    </v-btn>
                   </td>
                   <td>B1</td>
-                  <td>07/03/2022 - 22/07/2022</td>
-                  
+                  <td>{{ item.dtInicio }} - {{ item.dtFim }}</td>
+
                 </tr>
-                
+
               </tbody>
-              
+
             </template>
           </v-simple-table>
         </div>
@@ -58,7 +54,7 @@
 export default {
   data() {
     return {
-      curso: '',
+      perfil: '',
       headers: [
         {
           text: 'Componente curricular',
@@ -75,23 +71,38 @@ export default {
   },
   methods: {
     async ListarDiciplinas(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/leciona/" + sessionStorage.getItem('email'), {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + sessionStorage.getItem("token")
-                }
-            });
-            const resposta = await response.json();
-            this.diciplinas = resposta;
-        },
-    async PegarPrimeiroCurso(e) {
-            this.curso = this.diciplinas[0].curso;
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/leciona/" + sessionStorage.getItem('email'), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + sessionStorage.getItem("token")
+        }
+      });
+      const resposta = await response.json();
+      this.diciplinas = resposta;
+    },
+    async PegaNoMeuPerfil(e) {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + sessionStorage.getItem("token")
+        }
+      });
+      this.perfil = await response.json();
+      this.perfil = this.perfil[0];
+    },
+    Gambiarra(materia, curso, turma){
+      localStorage.setItem('materia', materia);
+      localStorage.setItem('curso', curso);
+      localStorage.setItem('turma', turma);
+      this.$router.push('/registroaula')
     }
+
   },
   created() {
-  this.ListarDiciplinas();
-  this.PegarPrimeiroCurso();
+    this.ListarDiciplinas();
+    this.PegaNoMeuPerfil();
   },
 }
 </script>

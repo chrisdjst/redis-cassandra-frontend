@@ -99,18 +99,18 @@ export default {
     },
     fab: false,
     dialog: false,
-    logout(e) {
-      e.preventDefault();
-      this.acesso=false;
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('email');
-    }
   }),
   methods: {
     onScroll(e) {
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;
       this.fab = top > 20;
+    },
+    logout(e) {
+      e.preventDefault();
+      this.acesso=false;
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
     },
     toTop() {
       this.$vuetify.goTo(0);

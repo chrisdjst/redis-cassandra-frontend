@@ -11,13 +11,13 @@
                 <v-list-item three-line>
                     <v-list-item-content>
                         <v-list-item-title class="mb-7 registro-aula">
-                            Curso
+                            {{ curso }}
                         </v-list-item-title>
                         <v-list-item-title class="mb-7 registro-aula">
-                            Turma
+                            {{ turma }}
                         </v-list-item-title>
                         <v-list-item-title class="mb-7 registro-aula">
-                            Disciplica
+                            {{ materia }}
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -48,6 +48,9 @@
 export default {
     data() {
         return {
+            curso: '',
+            turma: '',
+            materia: '',
             headers: [
                 {
                     text: 'Componente curricular',
@@ -64,11 +67,11 @@ export default {
     },
     methods: {
         async ListarTurmas(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + this.$store.getters["getEmail"], {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + localStorage.getItem('materia'), {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + this.$store.getters["getToken"]
+                    "Authorization": "Bearer " + sessionStorage.getItem('token')
                 }
             });
             const resposta = await response.json();
@@ -77,6 +80,12 @@ export default {
     },
     created() {
         this.ListarTurmas();
+        this.turma=localStorage.getItem('turma');
+        this.curso=localStorage.getItem('curso');
+        this.materia=localStorage.getItem('materia');
+        // localStorage.removeItem('turma');
+        // localStorage.removeItem('curso');
+        // localStorage.removeItem('materia');
     },
 }
 </script>
