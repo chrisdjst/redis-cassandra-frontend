@@ -80,13 +80,12 @@ export default {
                     "Authorization": "Bearer " + sessionStorage.getItem('token')
                 }
             });
-            const resposta = await response.json();
-            const usuario = resposta[0]
+            const usuario = await response.json();
             this.email = usuario.email;
             this.cpf = usuario.cpf;
             this.nome = usuario.nome;
             this.senha = usuario.senha;
-            this.tipo_usuario = usuario.tipoUsuario;
+            this.tipo_usuario = usuario.tipo_usuario;
         },
         async editarPerfil(e) {
             const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {

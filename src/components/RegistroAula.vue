@@ -10,14 +10,15 @@
 
                 <v-list-item three-line>
                     <v-list-item-content>
-                        <v-list-item-title class="mb-7 registro-aula">
-                            {{ curso }}
+                        
+                        <v-list-item-title class="mb-7 registro-aula2">
+                             Curso: <div class="registro-aula">{{ curso }}</div> 
                         </v-list-item-title>
-                        <v-list-item-title class="mb-7 registro-aula">
-                            {{ turma }}
+                        <v-list-item-title class="mb-7 registro-aula2">
+                            Turma: <div class="registro-aula">{{ turma }}</div> 
                         </v-list-item-title>
-                        <v-list-item-title class="mb-7 registro-aula">
-                            {{ materia }}
+                        <v-list-item-title class="mb-7 registro-aula2">
+                            Materia: <div class="registro-aula">{{ materia }}</div> 
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -45,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
     data() {
         return {
@@ -54,7 +56,6 @@ export default {
             headers: [
                 {
                     text: 'Componente curricular',
-
                     value: 'name',
                 },
                 { text: 'Local', value: 'local' },
@@ -84,6 +85,7 @@ export default {
             const resposta = await response.json();
             this.turmas = resposta;
         },
+        
 
     },
     created() {

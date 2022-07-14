@@ -89,6 +89,12 @@
   font-family: 'Iceland';
   margin-left: 65px;
 }
+.registro-aula2 {
+  color: #000000;
+  font-size: 40px;
+  font-family: 'Iceland';
+  margin-left: 65px;
+}
 .perfil2 {
   font-weight: bold;
   color: #000000;

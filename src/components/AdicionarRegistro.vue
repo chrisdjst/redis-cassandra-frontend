@@ -104,13 +104,18 @@ export default {
             const usuario = resposta[0]
             this.email = usuario.email;
             this.nome = usuario.nome;
-        } 
+        },
+        pegaData(e) {
+            const d = new Date();
+            this.data = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear()
+        }
 },
     created() {
         this.curso=localStorage.getItem('curso');
         this.turma=localStorage.getItem('turma');
         this.materia=localStorage.getItem('materia');
         this.pegarInfoPerfil();
+        this.pegaData();
     }
 }
 </script>

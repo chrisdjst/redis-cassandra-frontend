@@ -11,6 +11,7 @@
         <v-img alt="Cassis" class="mr-2" contain src="./assets/cassis4-icon.png" transition="scale-transition"
           width="40" />
         <h1>Cassis</h1>
+        
       </div>
       <v-spacer></v-spacer>
 
@@ -124,13 +125,12 @@ export default {
           "Authorization": "Bearer " + sessionStorage.getItem('token')
         }
       });
-      const resposta = await response.json();
-      const usuario = resposta[0]
+      const usuario = await response.json();
       this.usuario.email = usuario.email;
       this.usuario.cpf = usuario.cpf;
       this.usuario.nome = usuario.nome;
       this.usuario.senha = usuario.senha;
-      this.usuario.tipo_usuario = usuario.tipoUsuario;
+      this.usuario.tipo_usuario = usuario.tipo_usuario;
     }
   },
   created() {

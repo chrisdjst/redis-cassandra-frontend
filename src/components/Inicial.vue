@@ -5,7 +5,7 @@
         <v-list-item three-line>
           <v-list-item-content>
             <v-list-item-title class="registro-aula mb-4">
-              {{ perfil.tipoUsuario }} {{ perfil.nome }}
+              {{ perfil.tipo_usuario }} {{ perfil.nome }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -16,9 +16,6 @@
                 <tr>
                   <th>
                     Componente curricular
-                  </th>
-                  <th>
-                    Local
                   </th>
                   <th>
                     Data
@@ -33,8 +30,7 @@
                       {{ item.materia }} - {{ item.curso }} {{ item.turma }}
                     </v-btn>
                   </td>
-                  <td>B1</td>
-                  <td>{{ item.dtInicio }} - {{ item.dtFim }}</td>
+                  <td>{{ item.dt_inicio }} - {{ item.dt_fim }}</td>
 
                 </tr>
 
@@ -58,10 +54,8 @@ export default {
       headers: [
         {
           text: 'Componente curricular',
-
           value: 'name',
         },
-        { text: 'Local', value: 'local' },
         { text: 'Data', value: 'data' },
       ],
       diciplinas: [
@@ -71,7 +65,7 @@ export default {
   },
   methods: {
     async ListarDiciplinas(e) {
-      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/leciona/" + sessionStorage.getItem('email'), {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/redisLeciona/" + sessionStorage.getItem('email'), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +73,7 @@ export default {
         }
       });
       const resposta = await response.json();
-      this.diciplinas = resposta;
+      this.diciplinas = resposta.materias;
     },
     async PegaNoMeuPerfil(e) {
       const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
@@ -90,7 +84,6 @@ export default {
         }
       });
       this.perfil = await response.json();
-      this.perfil = this.perfil[0];
     },
     Gambiarra(materia, curso, turma){
       localStorage.setItem('materia', materia);
