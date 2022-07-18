@@ -8,8 +8,9 @@
     <!-- Inicio da ToolBar -->
     <v-app-bar rounded app dark color="#252525">
       <div class="d-flex align-center">
+        <a href="http://localhost:8080/inicial">
         <v-img alt="Cassis" class="mr-2" contain src="./assets/cassis4-icon.png" transition="scale-transition"
-          width="40" />
+          width="40" /></a>
         <h1>Cassis</h1>
         
       </div>

@@ -4,12 +4,16 @@
       <v-card width="1000">
         <v-list-item three-line>
           <v-list-item-content>
+            <v-list-item-title class="registro-aula mb-4">Vínculos do usuário</v-list-item-title>
             <v-list-item-title class="registro-aula mb-4">
-              {{ perfil.tipo_usuario }} {{ perfil.nome }}
+              {{ perfil.tipo_usuario }}: {{ perfil.nome }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <div class="empurra">
+          <div class="search-wrapper">
+            <input type="text" v-model="search" placeholder="Pesquisar matéria.."/>
+          </div>
           <v-simple-table class="tabela">
             <template v-slot:default>
               <thead>
@@ -18,12 +22,12 @@
                     Componente curricular
                   </th>
                   <th>
-                    Data
+                    Data inicial - Data final
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in diciplinas" :key="item.name">
+                <tr v-for="item in filteredList" :key="item.name">
 
                   <td>
                     <v-btn @click="Gambiarra(item.materia, item.curso, item.turma)" plain color="#000000" >
@@ -58,6 +62,7 @@ export default {
         },
         { text: 'Data', value: 'data' },
       ],
+      search: '',
       diciplinas: [
 
       ],
@@ -92,6 +97,13 @@ export default {
       this.$router.push('/registroaula')
     }
 
+  },
+  computed: {
+    filteredList() {
+      return this.diciplinas.filter(a => {
+        return a.materia.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   },
   created() {
     this.ListarDiciplinas();

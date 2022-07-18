@@ -24,7 +24,7 @@
                 </v-list-item>
                 <div class="aula" v-for="item in turmasFiltradas" >
                     <div class="empurra">
-                        {{ item.materia }} - {{ item.turma }} - {{ item.dtAula }}
+                        {{ item.materia }} - {{ item.turma }} - {{ item.dt_aula }}
                         <v-btn icon to="/editarregistro">
                             <v-icon>mdi-pencil-outline</v-icon>
                         </v-btn>
@@ -32,7 +32,7 @@
                     </div>
                 
                 <div class="conteudo">
-                    {{ item.descricaoAula }}
+                    {{ item.descricao_aula }}
                 </div>
                 </div>
                 <div class="empurra">
