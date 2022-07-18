@@ -95,8 +95,12 @@ export default {
       localStorage.setItem('curso', curso);
       localStorage.setItem('turma', turma);
       this.$router.push('/registroaula')
+    },
+    logado() {
+      if (!sessionStorage.getItem('token')) {
+        this.$router.push('/')
+      }
     }
-
   },
   computed: {
     filteredList() {
@@ -106,6 +110,7 @@ export default {
     }
   },
   created() {
+    this.logado();
     this.ListarDiciplinas();
     this.PegaNoMeuPerfil();
   },
