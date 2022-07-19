@@ -25,7 +25,44 @@
                                 <v-text-field v-model="materia" label="Materia" outlined :readonly="true">
                                 </v-text-field>
                                 <v-text-field v-model="titulo" label="Titulo da aula" outlined></v-text-field>
-                                <v-text-field v-model="data" label="Data da aula" outlined></v-text-field>
+                                                                <v-menu
+                                    ref="menu"
+                                    v-model="menu"
+                                    :close-on-content-click="false"
+                                    :return-value.sync="data_aula"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            v-model="data_aula"
+                                            label="Data da aula"
+                                            prepend-icon="mdi-calendar"
+                                            readonly
+                                            outlined
+                                            v-bind="attrs"
+                                            v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="data_aula"
+                                        no-title
+                                        scrollable
+                                    >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="menu = false"
+                                    > Cancel </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.menu.save(data_aula)"
+                                    > OK </v-btn>
+                                    </v-date-picker>
+                                </v-menu>
                                 <v-textarea outlined name="input-7-4" v-model="conteudo" label="Conteúdo da aula">
                                 </v-textarea>
                                 <v-alert type="success" v-show="alerta">

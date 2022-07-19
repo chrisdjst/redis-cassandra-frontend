@@ -38,6 +38,7 @@
                                             label="Data da aula"
                                             prepend-icon="mdi-calendar"
                                             readonly
+                                            outlined
                                             v-bind="attrs"
                                             v-on="on"
                                         ></v-text-field>
@@ -88,7 +89,7 @@
 </template>
 
 <script>
-import VCalendar from 'v-calendar';
+
 export default {
     data: () => ({
         alerta: false,
