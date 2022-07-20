@@ -38,7 +38,6 @@
                                             label="Data da aula"
                                             prepend-icon="mdi-calendar"
                                             readonly
-                                            outlined
                                             v-bind="attrs"
                                             v-on="on"
                                         ></v-text-field>
@@ -89,7 +88,7 @@
 </template>
 
 <script>
-
+import VCalendar from 'v-calendar';
 export default {
     data: () => ({
         alerta: false,
@@ -99,7 +98,7 @@ export default {
         materia: '',
         data_aula: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         conteudo: '',
-        email: '',
+        email: sessionStorage.getItem('email'),
         nome: '',
         menu: false,
     }),
@@ -139,8 +138,7 @@ export default {
                     "Authorization": "Bearer " + sessionStorage.getItem("token")
                 }
             });
-            const resposta = await response.json();
-            const usuario = resposta[0]
+            const usuario = await response.json();
             this.email = usuario.email;
             this.nome = usuario.nome;
         }

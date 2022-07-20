@@ -19,13 +19,11 @@
                             Editar Registro da Aula
                         </v-card-title>
                         <div class="empurra">
-                            <v-form ref="form" class="perfil2" @submit="CriarRegistro">
+                            <v-form ref="form" class="perfil2">
                                 <v-text-field v-model="curso" label="Curso" outlined :readonly="true"></v-text-field>
                                 <v-text-field v-model="turma" label="Turma" outlined :readonly="true"></v-text-field>
-                                <v-text-field v-model="materia" label="Materia" outlined :readonly="true">
-                                </v-text-field>
-                                <v-text-field v-model="titulo" label="Titulo da aula" outlined></v-text-field>
-                                                                <v-menu
+                                <v-text-field v-model="materia" label="Materia" outlined :readonly="true"></v-text-field>
+                                <v-menu
                                     ref="menu"
                                     v-model="menu"
                                     :close-on-content-click="false"
@@ -33,6 +31,7 @@
                                     transition="scale-transition"
                                     offset-y
                                     min-width="auto"
+                                    :readonly="true"
                                 >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
@@ -40,7 +39,6 @@
                                             label="Data da aula"
                                             prepend-icon="mdi-calendar"
                                             readonly
-                                            outlined
                                             v-bind="attrs"
                                             v-on="on"
                                         ></v-text-field>
@@ -65,18 +63,17 @@
                                 </v-menu>
                                 <v-textarea outlined name="input-7-4" v-model="conteudo" label="Conteúdo da aula">
                                 </v-textarea>
-                                <v-alert type="success" v-show="alerta">
-                                    Perfil alterado com sucesso!
-                                </v-alert>
-                                <v-alert type="error" v-show="alertaerro">
-                                    Erro ao alterar o perfil!
-                                </v-alert>
-
+                                <v-btn color="primary" v-on:click="AlterarRegistro">
+                                Alterar registro da aula
+                                </v-btn>
                             </v-form>
                             <br>
-                            <v-btn color="primary" type="submit">
-                                Alterar registro da aula
-                            </v-btn>
+                            <v-alert type="success" v-show="alerta">
+                                    RegistroAula alterado com sucesso!
+                                </v-alert>
+                                <v-alert type="error" v-show="alertaerro">
+                                    Erro ao alterar o RegistroAula!
+                                </v-alert>
                             <br><br>
                         </div>
                     </v-col>
@@ -96,25 +93,23 @@ export default {
         curso: '',
         turma: '',
         materia: '',
-        titulo: '',
-        data: '',
-        conteudo: ''
+        data_aula: '',
+        conteudo: '',
+        menu: false,
+        alerta: false,
+        alertaerro: false
     }),
     methods: {        
-        async CriarRegistro(e) {
-            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/", {
-                method: "POST",
+        async AlterarRegistro(e) {
+            const response = await fetch("https://redis-cassandra-backend.herokuapp.com/aulas/" + localStorage.getItem('materia') + "/" + localStorage.getItem('curso') + "/" + localStorage.getItem('data_aula'), {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + sessionStorage.getItem('token')
                 },
                 body: JSON.stringify({
-                    curso: this.curso,
                     turma: this.turma,
-                    materia: this.materia,
-                    titulo: this.titulo,
-                    data: this.data,
-                    conteudo: this.conteudo,
+                    descricao_aula: this.conteudo,
                 }),
             });
             if (response.status !== 200) {
@@ -125,11 +120,13 @@ export default {
                 this.alertaerro = false;
             }
         }  
-},
+    },
     created() {
         this.curso=localStorage.getItem('curso');
         this.turma=localStorage.getItem('turma');
         this.materia=localStorage.getItem('materia');
+        this.data_aula=localStorage.getItem('data_aula');
+        this.conteudo=localStorage.getItem('conteudo');
     }
 }
 </script>

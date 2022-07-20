@@ -25,7 +25,7 @@
                 <div class="aula" v-for="item in turmasFiltradas" >
                     <div class="empurra">
                         {{ item.materia }} - {{ item.turma }} - {{ item.dt_aula }}
-                        <v-btn icon to="/editarregistro">
+                        <v-btn icon @click="empurraEditar(item.dt_aula, item.descricao_aula)">
                             <v-icon>mdi-pencil-outline</v-icon>
                         </v-btn>
                         <v-divider></v-divider>
@@ -69,7 +69,7 @@ export default {
     computed: {
         turmasFiltradas: function () {
             return this.turmas.filter(function (turma) {
-            return (turma.materia == localStorage.getItem('materia') & turma.turma == localStorage.getItem('turma'));
+            return (turma.materia == localStorage.getItem('materia') & turma.turma == localStorage.getItem('turma') & turma.curso == localStorage.getItem('curso'));
             })
         }
     },
@@ -85,6 +85,11 @@ export default {
             const resposta = await response.json();
             this.turmas = resposta;
         },
+        empurraEditar(dt, conteudo) {
+            localStorage.setItem('data_aula', dt);
+            localStorage.setItem('conteudo', conteudo);
+            this.$router.push('/editarregistro')
+        }
         
 
     },

@@ -12,7 +12,7 @@
         </v-list-item>
         <div class="empurra">
           <div class="search-wrapper">
-            <input type="text" v-model="search" placeholder="Pesquisar matéria.."/>
+            <input type="text" v-model="search" placeholder="Pesquisar disciplina.."/>
           </div>
           <v-simple-table class="tabela">
             <template v-slot:default>
