@@ -14,8 +14,8 @@
           <div class="search-wrapper">
             <input type="text" v-model="search" placeholder="Pesquisar disciplina.."/>
           </div>
-          <v-simple-table class="tabela" v-if="tipo_usuario='Aluno'">
-            <template v-slot:default>
+          <v-simple-table class="tabela">
+            <template v-slot:default v-if="tipo_usuario=='Professor'">
               <thead>
                 <tr>
                   <th>
@@ -28,7 +28,6 @@
               </thead>
               <tbody>
                 <tr v-for="item in filteredList" :key="item.name">
-
                   <td>
                     <v-btn @click="Gambiarra(item.materia, item.curso, item.turma)" plain color="#000000" >
                       {{ item.materia }} - {{ item.curso }} {{ item.turma }}
@@ -39,11 +38,9 @@
               </tbody>
             </template>
 
-        <!-- Alunooo!!!!! -->
-
-          </v-simple-table>
-          <v-simple-table class="tabela" v-else>
-            <template v-slot:default>
+            <!-- Alunooo!!!!! -->
+            
+            <template v-slot:default v-else>
               <thead>
                 <tr>
                   <th>
@@ -55,15 +52,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in filteredList" :key="item.name">
-
+                <tr v-for="item in filteredListAluno" >
                   <td>
-                    <v-btn @click="Gambiarra(item.materia, item.curso, item.turma)" plain color="#000000" >
-                      {{ item.materia }} - {{ item.curso }} {{ item.turma }}
+                    <v-btn @click="GambiarraAluno(item)" plain color="#000000" >
+                      {{ item }}
                     </v-btn>
                   </td>
-                  <td>{{ item.dt_inicio }} - {{ item.dt_fim }}</td>
-
                 </tr>
 
               </tbody>
@@ -93,7 +87,6 @@ export default {
       ],
       search: '',
       diciplinas: [
-
       ],
     }
   },
@@ -130,6 +123,25 @@ export default {
       if (!sessionStorage.getItem('token')) {
         this.$router.push('/')
       }
+    },
+    async ListarDiciplinasAluno(e) {
+      const response = await fetch("https://redis-cassandra-backend.herokuapp.com/redisMatricula/" + sessionStorage.getItem('email'), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + sessionStorage.getItem("token")
+        }
+      });
+      const resposta = await response.json();
+      this.diciplinas = resposta.diciplinas;
+      console.log(this.diciplinas);
+      localStorage.setItem('curso', resposta.curso);
+      localStorage.setItem('turma', resposta.turma);
+      this.matricula = resposta.num_matricula;
+    },
+    GambiarraAluno(disciplina) {
+        localStorage.setItem('materia', disciplina);
+        this.$router.push('/registroaula')
     }
   },
   computed: {
@@ -137,12 +149,21 @@ export default {
       return this.diciplinas.filter(a => {
         return a.materia.toLowerCase().includes(this.search.toLowerCase())
       })
+    },
+    filteredListAluno() {
+      return this.diciplinas.filter(a => {
+        return a.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   },
   created() {
     this.logado();
-    this.ListarDiciplinas();
     this.PegaNoMeuPerfil();
+    if (this.tipo_usuario == 'Aluno') {
+        this.ListarDiciplinasAluno();
+    } else {
+        this.ListarDiciplinas();
+    }
   },
 }
 </script>
