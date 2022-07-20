@@ -10,11 +10,39 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <div class="empurra">
+        <div class="empurra" >
           <div class="search-wrapper">
             <input type="text" v-model="search" placeholder="Pesquisar disciplina.."/>
           </div>
-          <v-simple-table class="tabela">
+          <v-simple-table class="tabela" v-if="tipo_usuario='Aluno'">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th>
+                    Componente curricular
+                  </th>
+                  <th>
+                    Data inicial - Data final
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in filteredList" :key="item.name">
+
+                  <td>
+                    <v-btn @click="Gambiarra(item.materia, item.curso, item.turma)" plain color="#000000" >
+                      {{ item.materia }} - {{ item.curso }} {{ item.turma }}
+                    </v-btn>
+                  </td>
+                  <td>{{ item.dt_inicio }} - {{ item.dt_fim }}</td>
+                </tr>
+              </tbody>
+            </template>
+
+        <!-- Alunooo!!!!! -->
+
+          </v-simple-table>
+          <v-simple-table class="tabela" v-else>
             <template v-slot:default>
               <thead>
                 <tr>
@@ -55,6 +83,7 @@ export default {
   data() {
     return {
       perfil: '',
+      tipo_usuario: '',
       headers: [
         {
           text: 'Componente curricular',
@@ -89,6 +118,7 @@ export default {
         }
       });
       this.perfil = await response.json();
+      this.tipo_usuario = this.perfil.tipo_usuario;
     },
     Gambiarra(materia, curso, turma){
       localStorage.setItem('materia', materia);
