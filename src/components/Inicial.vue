@@ -46,16 +46,13 @@
                   <th>
                     Componente curricular
                   </th>
-                  <th>
-                    Data inicial - Data final
-                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in filteredListAluno" >
+                <tr v-for="item in filteredListAluno" :key="item.disciplina">
                   <td>
-                    <v-btn @click="GambiarraAluno(item)" plain color="#000000" >
-                      {{ item }}
+                    <v-btn @click="GambiarraAluno(item.disciplina)" plain color="#000000" >
+                      {{ item.disciplina }}
                     </v-btn>
                   </td>
                 </tr>
@@ -86,7 +83,7 @@ export default {
         { text: 'Data', value: 'data' },
       ],
       search: '',
-      diciplinas: [
+      disciplinas: [
       ],
     }
   },
@@ -100,7 +97,7 @@ export default {
         }
       });
       const resposta = await response.json();
-      this.diciplinas = resposta.materias;
+      this.disciplinas = resposta.materias;
     },
     async PegaNoMeuPerfil(e) {
       const response = await fetch("https://redis-cassandra-backend.herokuapp.com/usuarios/" + sessionStorage.getItem('email'), {
@@ -133,8 +130,7 @@ export default {
         }
       });
       const resposta = await response.json();
-      this.diciplinas = resposta.diciplinas;
-      console.log(this.diciplinas);
+      this.disciplinas = resposta.disciplinas;
       localStorage.setItem('curso', resposta.curso);
       localStorage.setItem('turma', resposta.turma);
       this.matricula = resposta.num_matricula;
@@ -146,19 +142,19 @@ export default {
   },
   computed: {
     filteredList() {
-      return this.diciplinas.filter(a => {
+      return this.disciplinas.filter(a => {
         return a.materia.toLowerCase().includes(this.search.toLowerCase())
       })
     },
     filteredListAluno() {
-      return this.diciplinas.filter(a => {
-        return a.toLowerCase().includes(this.search.toLowerCase())
+      return this.disciplinas.filter(a => {
+        return a.disciplina.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   },
-  created() {
+  async created() {
     this.logado();
-    this.PegaNoMeuPerfil();
+    await this.PegaNoMeuPerfil();
     if (this.tipo_usuario == 'Aluno') {
         this.ListarDiciplinasAluno();
     } else {
