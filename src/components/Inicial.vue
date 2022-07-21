@@ -137,7 +137,7 @@ export default {
     },
     GambiarraAluno(disciplina) {
         localStorage.setItem('materia', disciplina);
-        this.$router.push('/registroaula')
+        this.$router.push('/registroaulaaluno')
     }
   },
   computed: {
